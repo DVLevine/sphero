@@ -5,6 +5,26 @@ defmodule Sphero.Client do
 
   use ExActor.GenServer
 
+	##### Dan Edits
+
+	defcall heading(heading), state: state do
+		do_request(Sphero.Command.Heading.new(seq: state.seq, heading: heading), state)
+	end
+
+	defcall set_stabil(flag), state: state do
+		do_request(Sphero.Command.SetStabilization.new(seq: state.seq, flag: <<flag>>), state)
+	end
+
+	defcall self_level(start_stop, final_angle, sleep, control_system, anglelim, timeout, truetime),
+	state: state do
+		options = <<start_stop :: size(2), final_angle :: size(2) ,sleep :: size(2) ,control_system :: size(2)>>
+			data = options <> <<anglelim>> <> <<timeout>> <> <<truetime>>
+		do_request(Sphero.Command.SelfLevel.new(seq: state.seq, data: data), state)
+	end
+	
+	#####
+
+	
   defcall ping, state: state do
     do_request(Sphero.Request.Ping.new(seq: state.seq), state)
   end

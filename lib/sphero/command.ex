@@ -18,6 +18,22 @@ defmodule Sphero.Command.Heading do
   end
 end
 
+## Dan edits
+defmodule Sphero.Command.SetStabilization do
+	def new([seq: seq, flag: flag]) do
+		Sphero.Command.new(seq: seq, data: flag, cid: <<2>>)
+	end
+end
+
+defmodule Sphero.Command.SelfLevel do
+	def new ([seq: seq, data: data]) do
+			Sphero.Command.new(seq: seq, data: data, cid: <<9>>)
+	end
+end
+
+
+##
+
 defmodule Sphero.Command.SetBackLEDOutput do
   def new([seq: seq, data: data]) do
     Sphero.Command.new(seq: seq, data: data, cid: <<33>>)
